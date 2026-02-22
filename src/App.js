@@ -1,11 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-import List from './List'
+import "./App.css";
+import FilterButtonGroup from "./FilterButtonGroup";
+import CssBaseline from "@mui/material/CssBaseline";
+import TaskList from "./TaskList";
+import AddTask from "./AddTask";
+
 function App() {
   return (
-    <div className="App">
-      <List/>
-    </div>
+    <>
+      <CssBaseline />
+      <div className="App">
+        <h1 dir="rtl">مهامي</h1>
+        <hr />
+        <FilterButtonGroup />
+        <AddTask />
+      </div>
+    </>
   );
 }
 

@@ -10,12 +10,25 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import CheckIcon from "@mui/icons-material/Check";
 import { grey } from "@mui/material/colors";
+import { useContext } from "react";
+import { ToDoListContext } from "./Context/ToDoListContext";
 
-export default function ToDoCard() {
+export default function ToDoCard({
+  title = "عنوان المهمة",
+  subTitle = "تفاصيل المهمة",
+  isDone = false,
+}) {
+  const {tasks, setTasks} = useContext(ToDoListContext)
+  function doneBtn() {
+    tasks.map(task => {
+
+    })
+    // setTasks(tasks.filter(t => t.id !== task.id))
+  }
+  function deleteBtn() {}
+  function editBtn() {}
   return (
-    <Card
-    className="toDoCard" 
-    >
+    <Card className="toDoCard">
       <CardContent
         sx={{
           "&:last-child": { paddingBottom: "16px" },
@@ -31,8 +44,8 @@ export default function ToDoCard() {
           }}
         >
           <Grid size={8}>
-            <Typography variant="h4">المهمة الأولى</Typography>
-            <Typography variant="h6">وصف المهمة</Typography>
+            <Typography variant="h4">{title}</Typography>
+            <Typography variant="h6">{subTitle}</Typography>
           </Grid>
           <Grid
             size={4}
@@ -53,6 +66,7 @@ export default function ToDoCard() {
                     boxShadow: "0px 7px 7px rgba(0,0,0,0.4)",
                   },
                 }}
+                onClick={doneBtn}
               >
                 <CheckIcon />
               </IconButton>
@@ -68,6 +82,7 @@ export default function ToDoCard() {
                     boxShadow: "0px 7px 7px rgba(0,0,0,0.4)",
                   },
                 }}
+                onClick={editBtn}
               >
                 <EditOutlinedIcon />
               </IconButton>
@@ -83,6 +98,7 @@ export default function ToDoCard() {
                     boxShadow: "0px 7px 7px rgba(0,0,0,0.4)",
                   },
                 }}
+                onClick={deleteBtn}
               >
                 <DeleteOutlinedIcon />
               </IconButton>

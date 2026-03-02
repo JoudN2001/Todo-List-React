@@ -1,11 +1,10 @@
-import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-export default function EditPopUp() {
+export default function DeletePopUp() {
   return (
     <div
       style={{
@@ -30,25 +29,18 @@ export default function EditPopUp() {
       >
         <CardContent>
           <Typography variant="h5" fontWeight={500} sx={{ py: 1 }}>
-            تعديل المهمة
+            هل أنت متأكد من رغبتك في حذف المهمة؟
           </Typography>
-          <TextField
-            label="عنوان المهمة"
-            variant="standard"
-            sx={{ mb: 2, width: "100%" }}
-          />
-          <TextField
-            label="تفاصيل المهمة"
-            variant="standard"
-            sx={{ mb: 1, width: "100%" }}
-          />
+          <Typography variant="h6" fontWeight={400} sx={{ color: 'text.secondary', py: 1 }}>
+           لا يمكننك التراجع عن الحذف في اختيارك زر: (حذف)
+          </Typography>
         </CardContent>
         <CardActions dir="ltr">
           <Button size="medium" color="text.secondary">
-            تعديل
+            نعم، قم بالحذف
           </Button>
           <Button size="medium" color="text.secondary">
-            إلغاء
+            إغلاق
           </Button>
         </CardActions>
       </Card>

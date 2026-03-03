@@ -12,7 +12,13 @@ export default function TaskList() {
     })
     .map((card) => {
       return (
-        <ToDoCard key={card.id} title={card.title} subTitle={card.subTitle} />
+        <ToDoCard
+          id={card.id}
+          key={card.id}
+          title={card.title}
+          subTitle={card.subTitle}
+          isDone={card.isDone}
+        />
       );
     });
 
@@ -22,13 +28,25 @@ export default function TaskList() {
     })
     .map((card) => {
       return (
-        <ToDoCard key={card.id} title={card.title} subTitle={card.subTitle} />
+        <ToDoCard
+          id={card.id}
+          key={card.id}
+          title={card.title}
+          subTitle={card.subTitle}
+          isDone={card.isDone}
+        />
       );
     });
 
   const allToDoCard = tasks.map((card) => {
     return (
-      <ToDoCard key={card.id} title={card.title} subTitle={card.subTitle} />
+      <ToDoCard
+        id={card.id}
+        key={card.id}
+        title={card.title}
+        subTitle={card.subTitle}
+        isDone={card.isDone}
+      />
     );
   });
 

@@ -9,24 +9,46 @@ import IconButton from "@mui/material/IconButton";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import CheckIcon from "@mui/icons-material/Check";
-import { grey } from "@mui/material/colors";
+import { green, grey } from "@mui/material/colors";
 import { useContext } from "react";
 import { ToDoListContext } from "./Context/ToDoListContext";
+import EditPopUp from "./EditPopUp";
+import AlertOnEvent from "./AlertOnEvent";
 
 export default function ToDoCard({
+  id,
   title = "عنوان المهمة",
   subTitle = "تفاصيل المهمة",
   isDone = false,
 }) {
-  const {tasks, setTasks} = useContext(ToDoListContext)
-  function doneBtn() {
-    tasks.map(task => {
+  
+  const { tasks, setTasks } = useContext(ToDoListContext);
 
-    })
-    // setTasks(tasks.filter(t => t.id !== task.id))
+  function doneBtn() {
+    const UpdatedTasks = tasks.map((task) => {
+      if (task.id === id) return { ...task, isDone: !task.isDone };
+      return task;
+    });
+    setTasks(UpdatedTasks);
+    const updateMsg = setTimeout(()=>{return <AlertOnEvent action="إنجاز"/>},1000)
+    clearTimeout(updateMsg)
   }
-  function deleteBtn() {}
-  function editBtn() {}
+  
+  
+  function deleteBtn() {
+    const UpdatedTasks = tasks.filter((task) => {
+      return !(task.id === id);
+    });
+    setTasks(UpdatedTasks);
+    const updateMsg = setTimeout(()=>{return <AlertOnEvent action="حذف"/>},1000)
+  }
+  
+  function editBtn() {
+    console.log("test")
+    const updateMsg = setTimeout(()=>{return <AlertOnEvent action="تعديل"/>},1000)
+    return <EditPopUp/>
+  }
+
   return (
     <Card className="toDoCard">
       <CardContent
@@ -56,13 +78,13 @@ export default function ToDoCard({
             <Box style={{ textAlign: "left" }}>
               <IconButton
                 sx={{
-                  bgcolor: "#fff",
-                  color: "green",
-                  border: "3px solid green",
+                  bgcolor: isDone ? green[800] : "#fff",
+                  color: isDone ? "#fff" : green[800],
+                  border: isDone ? "3px solid #fff" : "3px solid green",
                   cursor: "pointer",
                   mx: 0.5,
                   "&:hover": {
-                    bgcolor: grey[200],
+                    bgcolor: isDone ? green[900] : grey[200],
                     boxShadow: "0px 7px 7px rgba(0,0,0,0.4)",
                   },
                 }}

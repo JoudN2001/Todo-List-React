@@ -70,7 +70,7 @@ function App() {
           >
             <ToDoWindow />
           </div>
-          {/* <AlertOnEvent/> */}
+          <AlertOnEvent/>
           {/* <EditPopUp /> */}
           {/* <DeletePopUp /> */}
         </IsDoneContext.Provider>

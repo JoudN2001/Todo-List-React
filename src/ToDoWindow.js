@@ -1,12 +1,13 @@
-import CssBaseline from "@mui/material/CssBaseline";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-
 //Component
 import FilterButtonGroup from "./FilterButtonGroup";
 import TaskList from "./TaskList";
 import AddTask from "./AddTask";
+
+//Other library
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 
 export default function ToDoWindow() {
   return (

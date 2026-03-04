@@ -1,52 +1,61 @@
+// Components
+import EditPopUp from "./EditPopUp";
+import DeletePopUp from "./DeletePopUp.js";
+import AlertOnEvent from "./AlertOnEvent";
+
+// Context and Hooks
+import { useContext } from "react";
+import { ToDoListContext } from "./Context/ToDoListContext";
+import { useState } from "react";
+import { createPortal } from "react-dom";
+
+// Icons
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import CheckIcon from "@mui/icons-material/Check";
+
+// Others Library
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-
-// Icons
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import CheckIcon from "@mui/icons-material/Check";
 import { green, grey } from "@mui/material/colors";
-import { useContext } from "react";
-import { ToDoListContext } from "./Context/ToDoListContext";
-import EditPopUp from "./EditPopUp";
-import AlertOnEvent from "./AlertOnEvent";
+import { v4 as uuidv4 } from "uuid";
 
-export default function ToDoCard({
-  id,
-  title = "عنوان المهمة",
-  subTitle = "تفاصيل المهمة",
-  isDone = false,
-}) {
-  
+export default function ToDoCard({ myTasks }) {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const { tasks, setTasks } = useContext(ToDoListContext);
 
-  function doneBtn() {
+  // Handel Events
+  function handelCompleteEvent() {
     const UpdatedTasks = tasks.map((task) => {
-      if (task.id === id) return { ...task, isDone: !task.isDone };
+      if (task.id === myTasks.id) return { ...task, isDone: !task.isDone };
       return task;
     });
     setTasks(UpdatedTasks);
-    const updateMsg = setTimeout(()=>{return <AlertOnEvent action="إنجاز"/>},1000)
-    clearTimeout(updateMsg)
+    // alert on event
   }
-  
-  
-  function deleteBtn() {
+
+  function handelDelete() {
     const UpdatedTasks = tasks.filter((task) => {
-      return !(task.id === id);
+      return task.id !== myTasks.id;
     });
     setTasks(UpdatedTasks);
-    const updateMsg = setTimeout(()=>{return <AlertOnEvent action="حذف"/>},1000)
+    setShowDeleteModal(false);
+    // alert on event
   }
-  
-  function editBtn() {
-    console.log("test")
-    const updateMsg = setTimeout(()=>{return <AlertOnEvent action="تعديل"/>},1000)
-    return <EditPopUp/>
+
+  function handelEdit(title, details) {
+    const UpdatedTasks = tasks.map((task) => {
+      if (task.id === myTasks.id)
+        return { ...task, title: title, subTitle: details };
+      return task;
+    });
+    setTasks(UpdatedTasks);
+    setShowEditModal(false);
   }
 
   return (
@@ -65,10 +74,13 @@ export default function ToDoCard({
             textAlign: "right",
           }}
         >
+          {/* Titile Task */}
           <Grid size={8}>
-            <Typography variant="h4">{title}</Typography>
-            <Typography variant="h6">{subTitle}</Typography>
+            <Typography variant="h4">{myTasks.title}</Typography>
+            <Typography variant="h6">{myTasks.subTitle}</Typography>
+            {/* === Titile Task === */}
           </Grid>
+          {/* Icons Group */}
           <Grid
             size={4}
             display={"flex"}
@@ -76,22 +88,24 @@ export default function ToDoCard({
             alignItems={"center"}
           >
             <Box style={{ textAlign: "left" }}>
+              {/* Complete Button */}
               <IconButton
                 sx={{
-                  bgcolor: isDone ? green[800] : "#fff",
-                  color: isDone ? "#fff" : green[800],
-                  border: isDone ? "3px solid #fff" : "3px solid green",
+                  bgcolor: myTasks.isDone ? green[800] : "#fff",
+                  color: myTasks.isDone ? "#fff" : green[800],
+                  border: myTasks.isDone ? "3px solid #fff" : "3px solid green",
                   cursor: "pointer",
                   mx: 0.5,
                   "&:hover": {
-                    bgcolor: isDone ? green[900] : grey[200],
+                    bgcolor: myTasks.isDone ? green[900] : grey[200],
                     boxShadow: "0px 7px 7px rgba(0,0,0,0.4)",
                   },
                 }}
-                onClick={doneBtn}
+                onClick={handelCompleteEvent}
               >
                 <CheckIcon />
               </IconButton>
+              {/* Edit Button */}
               <IconButton
                 sx={{
                   bgcolor: "#fff",
@@ -104,10 +118,24 @@ export default function ToDoCard({
                     boxShadow: "0px 7px 7px rgba(0,0,0,0.4)",
                   },
                 }}
-                onClick={editBtn}
+                onClick={() => {
+                  setShowEditModal(true);
+                }}
               >
                 <EditOutlinedIcon />
               </IconButton>
+              {/* Modal On Edit */}
+              {showEditModal &&
+                createPortal(
+                  <EditPopUp
+                    onClose={() => setShowEditModal(false)}
+                    handelEdit={handelEdit}
+                    currentTitle={myTasks.title}
+                    CurrentSubTitle={myTasks.subTitle}
+                  />,
+                  document.body,
+                )}
+              {/* Delete Button */}
               <IconButton
                 sx={{
                   bgcolor: "#fff",
@@ -120,12 +148,22 @@ export default function ToDoCard({
                     boxShadow: "0px 7px 7px rgba(0,0,0,0.4)",
                   },
                 }}
-                onClick={deleteBtn}
+                onClick={() => setShowDeleteModal(true)}
               >
                 <DeleteOutlinedIcon />
               </IconButton>
+              {/* Confirm Modal On Delete */}
+              {showDeleteModal &&
+                createPortal(
+                  <DeletePopUp
+                    onClose={() => setShowDeleteModal(false)}
+                    handelDelete={handelDelete}
+                  />,
+                  document.body,
+                )}
             </Box>
           </Grid>
+          {/* === Icons Group === */}
         </Grid>
       </CardContent>
     </Card>

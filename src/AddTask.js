@@ -45,7 +45,7 @@ export default function AddTask() {
       <Button
         variant="contained"
         style={{ width: "20%", fontSize: 18 }}
-        onClick={(e) => {
+        onClick={() => {
           id++;
           addTaskCard();
           setTaskTitle("")

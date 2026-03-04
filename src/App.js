@@ -1,6 +1,5 @@
+//Styles
 import "./App.css";
-import { createTheme, ThemeProvider } from "@mui/material";
-import { useState } from "react";
 
 // Component
 import ToDoWindow from "./ToDoWindow";
@@ -12,6 +11,13 @@ import DeletePopUp from "./DeletePopUp";
 import { IsDoneContext } from "./Context/IsDoneContext";
 import { ToDoListContext } from "./Context/ToDoListContext";
 
+//Hooks
+import { useState } from "react";
+
+//Others
+import { createTheme, ThemeProvider } from "@mui/material";
+
+// Fonts & Thems
 const them = createTheme({
   typography: {
     fontFamily: ["Alexandria"],
@@ -70,7 +76,7 @@ function App() {
           >
             <ToDoWindow />
           </div>
-          <AlertOnEvent/>
+          {/* <AlertOnEvent/> */}
           {/* <EditPopUp /> */}
           {/* <DeletePopUp /> */}
         </IsDoneContext.Provider>

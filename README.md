@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# 📝 React To-Do List App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A fully functional, responsive To-Do list application built with React and Material-UI. This project features full CRUD (Create, Read, Update, Delete) operations, task filtering, and data persistence, all wrapped in a clean, Arabic-supported (RTL) user interface.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+* **Complete CRUD Operations:** Users can add new tasks, edit existing ones, mark them as complete, and delete them.
+* **Dynamic Filtering:** Instantly filter tasks by status (All, Completed, Incomplete) using a segmented control group.
+* **Data Persistence:** Tasks are automatically saved to the browser's `localStorage` so data is never lost on refresh.
+* **Custom Modals & Alerts:** Features custom-built confirmation popups and auto-dismissing success notifications.
+* **Responsive RTL UI:** Built specifically with Right-to-Left (RTL) alignment for Arabic text support using Material-UI's layout system.
 
-### `npm start`
+## 🛠️ Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* **React.js** (Functional Components & Hooks)
+* **Material-UI (MUI)** (Components, Theming, and CSS-in-JS via the `sx` prop)
+* **JavaScript (ES6+)**
+* **HTML5 / CSS3**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🧠 What I Learned
 
-### `npm test`
+Building this project was a massive leap forward in my React journey. Here are the key technical concepts I learned and applied:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. Advanced State Management & Context API
+I moved beyond basic state and implemented the **Context API** (`useContext`) to prevent "prop drilling." I successfully created global providers for both the Task List data and the Active Filter state, allowing deeply nested child components to access and update the UI seamlessly.
 
-### `npm run build`
+### 2. React Hooks (`useState` & `useEffect`)
+* Mastered `useState` for handling local component states (like toggling modals and capturing form input).
+* Utilized `useEffect` to synchronize the application state with the browser's `localStorage` on initial render.
+* Used `useEffect` combined with JavaScript's `setTimeout` and cleanup functions to build self-dismissing, memory-leak-free alert notifications.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3. React Portals (`createPortal`)
+Instead of relying on standard DOM hierarchies, I learned how to use `react-dom/createPortal` to render my Edit/Delete modals and Alert notifications completely outside the main DOM tree. This ensured my popups were immune to parent CSS restrictions like `overflow: hidden` or `z-index` bugs.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 4. Material-UI Mastery & CSS Specificity
+* Learned how to leverage MUI's `Grid` and `Box` components to build complex, responsive flexbox layouts.
+* Mastered the `sx` prop for writing nested CSS and applying dynamic styling based on React state (e.g., turning task cards green when completed).
+* Overcame CSS specificity challenges, specifically learning how to use parent selectors (`&`) and target pseudo-classes like `&:last-child` to override default MUI component styles.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 5. JavaScript Array Methods
+Deepened my understanding of higher-order array methods by heavily utilizing `.map()` to dynamically render UI components and `.filter()` to instantly sort tasks and process delete operations without mutating the original state.
 
-### `npm run eject`
+### 6. Event Bubbling & Propagation
+Encountered and solved issues with DOM event bubbling by implementing `e.stopPropagation()`. This allowed me to create modals that close when clicking the background overlay, but remain open when interacting with the modal card itself.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 💻 How to Run Locally
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/JoudN2001/Todo-List-React.git

@@ -2,6 +2,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import Stack from "@mui/material/Stack";
+
+//Hooks and Context
 import { useState } from "react";
 import { useContext } from "react";
 import { ToDoListContext } from "./Context/ToDoListContext";
@@ -11,14 +13,17 @@ export default function AddTask() {
   const { tasks, setTasks } = useContext(ToDoListContext);
   const [taskTitle, setTaskTitle] = useState("");
   function addTaskCard() {
-    return setTasks([...tasks,
+    const updatedTasks = [
+      ...tasks,
       {
         id: id,
         title: taskTitle,
         subTitle: "",
         isDone: false,
       },
-    ]);
+    ];
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   }
   return (
     <Stack
@@ -48,8 +53,9 @@ export default function AddTask() {
         onClick={() => {
           id++;
           addTaskCard();
-          setTaskTitle("")
+          setTaskTitle("");
         }}
+        disabled={taskTitle.length <= 0}
       >
         إضافة <AddIcon sx={{ mx: 0.3 }} />
       </Button>

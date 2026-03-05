@@ -22,40 +22,52 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import { green, grey } from "@mui/material/colors";
-import { v4 as uuidv4 } from "uuid";
 
 export default function ToDoCard({ myTasks }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertAction, setAlertAction] = useState("");
   const { tasks, setTasks } = useContext(ToDoListContext);
 
   // Handel Events
+  function triggerAlert(actionName) {
+    setAlertAction(actionName);
+    setShowAlert(true);
+  }
+
   function handelCompleteEvent() {
-    const UpdatedTasks = tasks.map((task) => {
+    const updatedTasks = tasks.map((task) => {
       if (task.id === myTasks.id) return { ...task, isDone: !task.isDone };
       return task;
     });
-    setTasks(UpdatedTasks);
-    // alert on event
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    if (!myTasks.isDone) {
+      triggerAlert("إنجاز");
+    }
   }
 
   function handelDelete() {
-    const UpdatedTasks = tasks.filter((task) => {
+    const updatedTasks = tasks.filter((task) => {
       return task.id !== myTasks.id;
     });
-    setTasks(UpdatedTasks);
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     setShowDeleteModal(false);
-    // alert on event
+    triggerAlert("حذف");
   }
 
   function handelEdit(title, details) {
-    const UpdatedTasks = tasks.map((task) => {
+    const updatedTasks = tasks.map((task) => {
       if (task.id === myTasks.id)
         return { ...task, title: title, subTitle: details };
       return task;
     });
-    setTasks(UpdatedTasks);
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     setShowEditModal(false);
+    triggerAlert("تعديل");
   }
 
   return (
@@ -166,6 +178,12 @@ export default function ToDoCard({ myTasks }) {
           {/* === Icons Group === */}
         </Grid>
       </CardContent>
+      {showAlert && (
+        <AlertOnEvent
+          action={alertAction}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
     </Card>
   );
 }

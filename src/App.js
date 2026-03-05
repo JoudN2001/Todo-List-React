@@ -3,16 +3,13 @@ import "./App.css";
 
 // Component
 import ToDoWindow from "./ToDoWindow";
-import AlertOnEvent from "./AlertOnEvent";
-import EditPopUp from "./EditPopUp";
-import DeletePopUp from "./DeletePopUp";
 
 //Context
 import { IsDoneContext } from "./Context/IsDoneContext";
 import { ToDoListContext } from "./Context/ToDoListContext";
 
 //Hooks
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //Others
 import { createTheme, ThemeProvider } from "@mui/material";
@@ -60,6 +57,10 @@ const initialTasks = [
 function App() {
   const [filter, setFilter] = useState("all");
   const [tasks, setTasks] = useState(initialTasks);
+  useEffect(() => {
+    const storgeTasks = JSON.parse(localStorage.getItem("tasks"));
+    setTasks(storgeTasks || initialTasks);
+  }, []);
   return (
     <ThemeProvider theme={them}>
       <ToDoListContext.Provider value={{ tasks, setTasks }}>
@@ -76,9 +77,6 @@ function App() {
           >
             <ToDoWindow />
           </div>
-          {/* <AlertOnEvent/> */}
-          {/* <EditPopUp /> */}
-          {/* <DeletePopUp /> */}
         </IsDoneContext.Provider>
       </ToDoListContext.Provider>
     </ThemeProvider>

@@ -21,14 +21,6 @@ A fully functional, responsive To-Do list application built with React and Mater
 
 Building this project was a massive leap forward in my React journey. Here are the key technical concepts I learned and applied:
 
-## 📲 Screenshot
-
-![Screenshot](public/Screenshot/Screenshot%201.jpeg)
-![Screenshot](public/Screenshot/Screenshot%202.jpeg)
-![Screenshot](public/Screenshot/Screenshot%203.jpeg)
-![Screenshot](public/Screenshot/Screenshot%204.jpeg)
-![Screenshot](public/Screenshot/Screenshot%205.jpeg)
-
 ### 1. Advanced State Management & Context API
 I moved beyond basic state and implemented the **Context API** (`useContext`) to prevent "prop drilling." I successfully created global providers for both the Task List data and the Active Filter state, allowing deeply nested child components to access and update the UI seamlessly.
 
@@ -56,3 +48,9 @@ Encountered and solved issues with DOM event bubbling by implementing `e.stopPro
 1. Clone the repository:
    ```bash
    git clone https://github.com/JoudN2001/Todo-List-React.git
+
+## 📲 Screenshot
+
+![Screenshot](public/Screenshot/Screenshot%201.jpeg)
+![Screenshot](public/Screenshot/Screenshot%203.jpeg)
+![Screenshot](public/Screenshot/Screenshot%204.jpeg)
